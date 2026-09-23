@@ -4,6 +4,8 @@ import Solution from "@/components/Solution";
 import Ecosystem from "@/components/Ecosystem";
 import StudentExperience from "@/components/StudentExperience";
 import OrganizerExperience from "@/components/OrganizerExperience";
+import DesignSystem from "@/components/DesignSystem";
+import Impact from "@/components/Impact";
 
 export default function Page() {
   return (
@@ -20,8 +22,8 @@ export default function Page() {
       </section>
       <StudentExperience />
       <OrganizerExperience />
-      <section id="design-system" className="scroll-mt-24" />
-      <section id="impact" className="scroll-mt-24" />
+      <DesignSystem />
+      <Impact />
       <section id="closing" className="scroll-mt-24" />
     </main>
   );
