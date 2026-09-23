@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
+import Ecosystem from "@/components/Ecosystem";
 
 export default function Page() {
   return (
@@ -11,6 +12,9 @@ export default function Page() {
       </section>
       <section id="solution" className="scroll-mt-24">
         <Solution />
+      </section>
+      <section id="ecosystem" className="scroll-mt-24">
+        <Ecosystem />
       </section>
       <section id="student" className="scroll-mt-24" />
       <section id="organizer" className="scroll-mt-24" />
