@@ -6,6 +6,7 @@ import StudentExperience from "@/components/StudentExperience";
 import OrganizerExperience from "@/components/OrganizerExperience";
 import DesignSystem from "@/components/DesignSystem";
 import Impact from "@/components/Impact";
+import Closing from "@/components/Closing";
 
 export default function Page() {
   return (
@@ -24,7 +25,7 @@ export default function Page() {
       <OrganizerExperience />
       <DesignSystem />
       <Impact />
-      <section id="closing" className="scroll-mt-24" />
+      <Closing />
     </main>
   );
 }
