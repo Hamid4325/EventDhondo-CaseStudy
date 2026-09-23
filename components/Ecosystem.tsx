@@ -29,7 +29,7 @@ export default function Ecosystem() {
         </Reveal>
 
         <Reveal className="mt-16" delay={0.1}>
-          <div className="relative mx-auto aspect-square w-full max-w-[620px]">
+          <div className="relative mx-auto aspect-[620/520] w-full max-w-[620px]">
             <svg viewBox="0 0 620 520" className="absolute inset-0 h-full w-full">
               <defs>
                 <marker id="ed-arrow" viewBox="0 0 10 10" refX="8" refY="5"
