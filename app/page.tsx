@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
 import Ecosystem from "@/components/Ecosystem";
+import StudentExperience from "@/components/StudentExperience";
 
 export default function Page() {
   return (
@@ -16,7 +17,7 @@ export default function Page() {
       <section id="ecosystem" className="scroll-mt-24">
         <Ecosystem />
       </section>
-      <section id="student" className="scroll-mt-24" />
+      <StudentExperience />
       <section id="organizer" className="scroll-mt-24" />
       <section id="design-system" className="scroll-mt-24" />
       <section id="impact" className="scroll-mt-24" />

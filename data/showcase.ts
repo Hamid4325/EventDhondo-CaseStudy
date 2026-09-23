@@ -88,6 +88,7 @@ export const studentFeatures: ShowcaseFeature[] = [
 ];
 
 export const studentMicroMoment = {
+  id: "registration-success",
   title: "Instant confirmation",
   description: "Registration, QR, and a spot secured — in one tap.",
   screen: SCREENS.registrationSuccess,
