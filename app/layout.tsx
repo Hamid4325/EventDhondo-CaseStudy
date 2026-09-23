@@ -30,7 +30,6 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
       <body className="font-sans antialiased">
         <Navbar />
-        <a id="top" className="absolute" aria-hidden="true" />
         {children}
       </body>
     </html>
