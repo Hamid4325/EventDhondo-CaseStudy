@@ -106,7 +106,7 @@ export default function Hero() {
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          className="animate-bounce"
+          className="animate-bounce motion-reduce:animate-none"
         >
           <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>

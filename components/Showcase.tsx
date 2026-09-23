@@ -89,8 +89,8 @@ export default function Showcase({
             ))}
           </div>
 
-          <div className={`flex items-center justify-center py-32 ${flip ? "order-1" : "order-2"}`}>
-            <div className="relative h-[82vh] max-h-[760px] w-full">
+          <div className={`${flip ? "order-1" : "order-2"}`}>
+            <div className="sticky top-24 relative h-[82vh] max-h-[760px] w-full">
               {features.map((f, i) => (
                 <motion.div
                   key={f.id}

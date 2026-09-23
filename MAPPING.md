@@ -36,7 +36,7 @@ Status: **all 11 named screens recovered. No NOT FOUND entries.**
   participation list, per-event reviews, settings, profile, …).
 
 ## Reference deck (for Tasks 5/7/9)
-`showcase/public/_reference/cover-{01..12}.png` — rendered pages of
+`showcase/reference/cover-{01..12}.png` — rendered pages of
 `01 — Cover_merged.pdf`, never rendered by the app. Text-layer notes:
 
 - `cover-001` — hero headline "Discover. Participate. Achieve." + subhead VERBATIM as in spec §5.

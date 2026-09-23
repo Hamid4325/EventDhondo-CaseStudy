@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "./Reveal";
 import HexLogo from "./HexLogo";
 import { ecosystemNodes } from "@/data/showcase";
@@ -19,6 +19,7 @@ const cycleEdges = [
 ];
 
 export default function Ecosystem() {
+  const reduce = useReducedMotion();
   return (
     <section className="bg-surface">
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
@@ -54,7 +55,7 @@ export default function Ecosystem() {
                       initial={{ pathLength: 0 }}
                       whileInView={{ pathLength: 1 }}
                       viewport={{ once: true, amount: 0.4 }}
-                      transition={{ duration: 1.3, ease: easeOut, delay: 0.3 }}
+                      transition={{ duration: reduce ? 0 : 1.3, ease: easeOut, delay: 0.3 }}
                     />
                   </g>
                 );

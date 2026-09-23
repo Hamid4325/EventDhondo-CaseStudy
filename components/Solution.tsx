@@ -1,11 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "./Reveal";
 import { journeySteps } from "@/data/showcase";
 import { fadeUp, easeOut } from "@/lib/motion";
 
 export default function Solution() {
+  const reduce = useReducedMotion();
   return (
     <section className="bg-brand-tint">
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
@@ -31,7 +32,7 @@ export default function Solution() {
               initial={{ pathLength: 0 }}
               whileInView={{ pathLength: 1 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 1.4, ease: easeOut }}
+              transition={{ duration: reduce ? 0 : 1.4, ease: easeOut }}
             />
           </svg>
 
