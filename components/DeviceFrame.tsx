@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- keep raw <img> + onError so a missing screen still shows the labeled fallback in static export */
 "use client";
 
 import { useState } from "react";
