@@ -3,6 +3,7 @@ import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
 import Ecosystem from "@/components/Ecosystem";
 import StudentExperience from "@/components/StudentExperience";
+import OrganizerExperience from "@/components/OrganizerExperience";
 
 export default function Page() {
   return (
@@ -18,7 +19,7 @@ export default function Page() {
         <Ecosystem />
       </section>
       <StudentExperience />
-      <section id="organizer" className="scroll-mt-24" />
+      <OrganizerExperience />
       <section id="design-system" className="scroll-mt-24" />
       <section id="impact" className="scroll-mt-24" />
       <section id="closing" className="scroll-mt-24" />
