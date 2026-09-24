@@ -1,7 +1,7 @@
 "use client";
 
 import Reveal from "./Reveal";
-import HexLogo from "./HexLogo";
+import Logo from "./Logo";
 
 const pills = [
   { label: "LinkedIn", href: "#" },
@@ -35,7 +35,7 @@ export default function Closing() {
       <footer className="border-t border-black/5">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
           <div className="flex items-center gap-2">
-            <HexLogo size={20} />
+            <Logo size={26} className="drop-shadow-[0_2px_6px_rgba(10,46,44,0.25)]" />
             <span className="font-display text-sm font-semibold text-ink">EventDhondo</span>
           </div>
           <p className="text-xs text-muted">
