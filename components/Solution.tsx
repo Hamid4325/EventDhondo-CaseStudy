@@ -1,9 +1,216 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import Reveal from "./Reveal";
 import { journeySteps } from "@/data/showcase";
-import { fadeUp, easeOut } from "@/lib/motion";
+import { easeOut } from "@/lib/motion";
+
+const PATH_D =
+  "M120 400 C 190 380 220 360 280 326 C 350 292 380 278 440 252 C 510 226 540 212 600 178 C 670 144 700 130 760 104 C 820 80 850 68 900 56";
+
+const NODES = [
+  { x: 120, y: 400 },
+  { x: 280, y: 326 },
+  { x: 440, y: 252 },
+  { x: 600, y: 178 },
+  { x: 760, y: 104 },
+  { x: 900, y: 56 },
+] as const;
+
+function Diagram({
+  active,
+  progress,
+  staticMode = false,
+}: {
+  active: number;
+  progress?: MotionValue<number>;
+  staticMode?: boolean;
+}) {
+  return (
+    <div className="relative mx-auto mt-16 hidden aspect-[1000/520] w-full max-w-5xl lg:block">
+      <svg viewBox="0 0 1000 520" className="absolute inset-0 h-full w-full">
+        <path
+          d={PATH_D}
+          fill="none"
+          stroke="#0E8F8A"
+          strokeOpacity="0.25"
+          strokeWidth={2}
+        />
+        {staticMode ? (
+          <path d={PATH_D} fill="none" stroke="#0E8F8A" strokeWidth={3} />
+        ) : (
+          <motion.path
+            d={PATH_D}
+            fill="none"
+            stroke="#0E8F8A"
+            strokeWidth={3}
+            style={{ pathLength: progress }}
+          />
+        )}
+      </svg>
+      {NODES.map((node, i) => (
+        <DiagramNode
+          key={journeySteps[i].label}
+          node={node}
+          index={i}
+          active={active}
+          staticMode={staticMode}
+        />
+      ))}
+    </div>
+  );
+}
+
+function DiagramNode({
+  node,
+  index,
+  active,
+  staticMode = false,
+}: {
+  node: { x: number; y: number };
+  index: number;
+  active: number;
+  staticMode?: boolean;
+}) {
+  const current = index === active;
+  const passed = index < active;
+
+  const animate = staticMode
+    ? undefined
+    : current
+      ? { opacity: 1, scale: 1.06, filter: "blur(0px)" }
+      : passed
+        ? { opacity: 0.45, scale: 1, filter: "blur(1px)" }
+        : { opacity: 0.6, scale: 1, filter: "blur(0px)" };
+
+  return (
+    <motion.div
+      className="absolute -translate-x-1/2 -translate-y-1/2 flex w-max flex-col items-center"
+      style={{
+        left: `${(node.x / 1000) * 100}%`,
+        top: `${(node.y / 520) * 100}%`,
+      }}
+      animate={animate}
+      transition={{ duration: 0.35, ease: easeOut }}
+    >
+      <span
+        className={`flex h-14 w-14 items-center justify-center rounded-full bg-white font-display text-xl font-bold text-brand shadow ring-2 ${current && !staticMode ? "ring-brand" : "ring-brand/30"}`}
+      >
+        {index + 1}
+      </span>
+      <p className="text-center font-display font-semibold text-ink">
+        {journeySteps[index].label}
+      </p>
+      <p className="text-center text-muted text-sm">{journeySteps[index].note}</p>
+    </motion.div>
+  );
+}
+
+function Rail({
+  active,
+  progress,
+  staticMode = false,
+}: {
+  active: number;
+  progress?: MotionValue<number>;
+  staticMode?: boolean;
+}) {
+  return (
+    <div className="mt-16 lg:hidden">
+      <ol className="relative border-l border-brand/20 pl-8">
+        {staticMode ? (
+          <div
+            aria-hidden
+            className="absolute -left-px top-0 h-full w-[2px] bg-brand"
+          />
+        ) : (
+          <motion.div
+            aria-hidden
+            style={{ scaleY: progress }}
+            className="absolute -left-px top-0 h-full w-[2px] origin-top bg-brand"
+          />
+        )}
+        {journeySteps.map((s, i) => {
+          const current = i === active;
+          const passed = i < active;
+          const chipClass = staticMode
+            ? "bg-white text-brand"
+            : current
+              ? "bg-brand text-white"
+              : passed
+                ? "bg-white text-brand/50"
+                : "bg-white text-brand/30";
+          return (
+            <li key={s.label} className="mb-8 last:mb-0">
+              <div className="flex items-center gap-4">
+                <span
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold ring-1 ring-brand/30 ${chipClass}`}
+                >
+                  {i + 1}
+                </span>
+                <div>
+                  <p className="font-display text-xl text-ink">{s.label}</p>
+                  <p className="text-muted text-sm">{s.note}</p>
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
+function ScrollJourney() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [active, setActive] = useState<number>(0);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+  const progress: MotionValue<number> = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, 1]
+  );
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (v: number) => {
+      setActive(Math.min(5, Math.floor(Math.min(Math.max(v, 0), 0.999) * 6)));
+    });
+    return unsubscribe;
+  }, [scrollYProgress]);
+
+  return (
+    <div ref={ref} className="relative w-full min-h-[220vh]">
+      <div className="sticky top-24 hidden h-[calc(100vh-6rem)] items-center lg:flex">
+        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+          <Diagram active={active} progress={progress} />
+        </div>
+      </div>
+      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+        <Rail active={active} progress={progress} />
+      </div>
+    </div>
+  );
+}
+
+function StaticMarkup() {
+  return (
+    <div className="relative w-full py-24">
+      <Diagram active={5} staticMode />
+      <Rail active={5} staticMode />
+    </div>
+  );
+}
 
 export default function Solution() {
   const reduce = useReducedMotion();
@@ -16,48 +223,7 @@ export default function Solution() {
             lifecycle while building a digital identity layer for students.
           </h2>
         </Reveal>
-
-        <div className="relative mt-16">
-          <svg
-            className="pointer-events-none absolute left-[8%] top-7 hidden h-2 w-[84%] lg:block"
-            viewBox="0 0 100 1"
-            preserveAspectRatio="none"
-          >
-            <path d="M0 0.5 L100 0.5" stroke="currentColor" strokeWidth="0.35" className="text-brand/40" />
-            <motion.path
-              d="M0 0.5 L100 0.5"
-              stroke="currentColor"
-              strokeWidth="0.5"
-              className="text-brand"
-              initial={{ pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: reduce ? 0 : 1.4, ease: easeOut }}
-            />
-          </svg>
-
-          <ol className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-6">
-            {journeySteps.map((s, i) => (
-              <motion.li
-                key={s.label}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.6, ease: easeOut, delay: i * 0.08 }}
-                className="relative flex flex-col items-center gap-3 text-center"
-              >
-                <span className="z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white font-display text-xl font-bold text-brand shadow-[0_10px_30px_-12px_rgba(10,46,44,0.4)] ring-4 ring-brand/10">
-                  {i + 1}
-                </span>
-                <div>
-                  <p className="font-display text-lg font-semibold text-ink">{s.label}</p>
-                  <p className="mt-1 text-xs leading-snug text-muted">{s.note}</p>
-                </div>
-              </motion.li>
-            ))}
-          </ol>
-        </div>
+        {reduce ? <StaticMarkup /> : <ScrollJourney />}
       </div>
     </section>
   );
