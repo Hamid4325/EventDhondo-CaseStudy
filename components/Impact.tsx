@@ -50,13 +50,9 @@ export default function Impact() {
 
           {impactBadges.map((b) => (
             <Reveal key={b.label}>
-              <div className="flex flex-col items-center gap-4 text-center">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/25">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-8 w-8 text-teal-200">
-                    <path d="m5 13 4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <p className="max-w-xs text-sm leading-relaxed text-teal-100/85">{b.label}</p>
+              <div className="flex flex-col items-center gap-6 text-center">
+                <span className="h-px w-10 bg-teal-200/40" aria-hidden />
+                <p className="max-w-xs text-base font-medium leading-relaxed text-teal-50/90">{b.label}</p>
               </div>
             </Reveal>
           ))}
