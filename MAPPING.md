@@ -12,7 +12,7 @@ Status: **all 11 named screens recovered. No NOT FOUND entries.**
 
 | Named screen (public/screens) | Source frame | Distinguishing text |
 |---|---|---|
-| `splash-screen.png` | `frame-002` | "EventDhondo" splash (9:41) |
+| `splash-screen.png` | `frame-003` (teal variant) | "EventDhondo" splash (9:41) — white `frame-002` variant unused |
 | `interest-selection.png` | `frame-010` | "What are you into?" + interest chips |
 | `home-dashboard-student.png` | `frame-011` | "Hi, John — Keep Learning, Keep Building" |
 | `event-detail-registration.png` | `frame-015` | "Event detail … Register Now", seats left |
@@ -25,7 +25,8 @@ Status: **all 11 named screens recovered. No NOT FOUND entries.**
 | `reviews-ratings-overview.png` | `frame-051` | "Overall Rating 4.0, Based on 728 reviews" + rating breakdown |
 
 ## Duplicates / choices
-- `frame-002` and `frame-003` are identical splash → used 002.
+- `frame-002` and `frame-003` are the white and teal splash variants; text layers matched identically
+  (background color is invisible to text extraction) — the teal `frame-003` is used for the hero.
 - `frame-015` and `frame-016` are identical event-detail → used 015.
 - `frame-050` and `frame-051` are both Reviews & Ratings; 051 includes the 5→1
   rating breakdown → used 051 (050 is the scrolled variant).
