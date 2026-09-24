@@ -22,7 +22,7 @@ export default function DeviceFrame({
 
   return (
     <div
-      className={`${className} ${tilted ? "-rotate-3" : ""} transition-transform duration-300`}
+      className={`${className} w-max ${tilted ? "-rotate-3" : ""} transition-transform duration-300`}
     >
       <div className="relative rounded-[2.5rem] bg-gradient-to-b from-slate-600 via-slate-900 to-black p-[11px] shadow-[0_40px_80px_-20px_rgba(10,46,44,0.55)] ring-1 ring-black/50">
         <div className="absolute -left-[3px] top-24 z-0 h-12 w-[3px] rounded-l bg-slate-800" aria-hidden />

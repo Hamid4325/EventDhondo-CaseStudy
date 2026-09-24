@@ -2,14 +2,17 @@
 export default function Logo({
   size = 28,
   className = "",
+  decorative = false,
 }: {
   size?: number;
   className?: string;
+  decorative?: boolean;
 }) {
   return (
     <img
       src="/Logo.png"
-      alt="EventDhondo"
+      alt={decorative ? "" : "EventDhondo"}
+      aria-hidden={decorative ? true : undefined}
       width={size}
       height={size}
       className={className}

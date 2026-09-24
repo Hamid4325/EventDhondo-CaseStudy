@@ -72,14 +72,14 @@ export default function Hero() {
           fallbackLabel="splash-screen.png"
           tilted
           maxH={430}
-          className="w-36 sm:w-44"
+          className="max-w-36 sm:max-w-44"
         />
         <DeviceFrame
           src={SCREENS.home}
           alt="Student home dashboard"
           fallbackLabel="home-dashboard-student.png"
           maxH={520}
-          className="w-52 sm:w-64"
+          className="max-w-52 sm:max-w-64"
         />
       </motion.div>
 

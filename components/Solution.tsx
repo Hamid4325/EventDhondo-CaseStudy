@@ -124,7 +124,7 @@ function Rail({
 }) {
   return (
     <div className="mt-16 lg:hidden">
-      <ol className="relative border-l border-brand/20 pl-8">
+      <div className="relative">
         {staticMode ? (
           <div
             aria-hidden
@@ -137,33 +137,35 @@ function Rail({
             className="absolute -left-px top-0 h-full w-[2px] origin-top bg-brand"
           />
         )}
-        {journeySteps.map((s, i) => {
-          const current = i === active;
-          const passed = i < active;
-          const chipClass = staticMode
-            ? "bg-white text-brand"
-            : current
-              ? "bg-brand text-white"
-              : passed
-                ? "bg-white text-brand/50"
-                : "bg-white text-brand/30";
-          return (
-            <li key={s.label} className="mb-8 last:mb-0">
-              <div className="flex items-center gap-4">
-                <span
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold ring-1 ring-brand/30 ${chipClass}`}
-                >
-                  {i + 1}
-                </span>
-                <div>
-                  <p className="font-display text-xl text-ink">{s.label}</p>
-                  <p className="text-muted text-sm">{s.note}</p>
+        <ol className="relative border-l border-brand/20 pl-8">
+          {journeySteps.map((s, i) => {
+            const current = i === active;
+            const passed = i < active;
+            const chipClass = staticMode
+              ? "bg-white text-brand"
+              : current
+                ? "bg-brand text-white"
+                : passed
+                  ? "bg-white text-brand/50"
+                  : "bg-white text-brand/30";
+            return (
+              <li key={s.label} className="mb-8 last:mb-0">
+                <div className="flex items-center gap-4">
+                  <span
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold ring-1 ring-brand/30 ${chipClass}`}
+                  >
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-display text-xl text-ink">{s.label}</p>
+                    <p className="text-muted text-sm">{s.note}</p>
+                  </div>
                 </div>
-              </div>
-            </li>
-          );
-        })}
-      </ol>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
     </div>
   );
 }
@@ -190,7 +192,7 @@ function ScrollJourney() {
   }, [scrollYProgress]);
 
   return (
-    <div ref={ref} className="relative w-full min-h-[220vh]">
+    <div ref={ref} className="relative w-full lg:min-h-[220vh]">
       <div className="sticky top-24 hidden h-[calc(100vh-6rem)] items-center lg:flex">
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
           <Diagram active={active} progress={progress} />

@@ -34,7 +34,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a href="#top" className="flex items-center gap-2.5">
-          <Logo size={28} className="shrink-0 drop-shadow-[0_2px_6px_rgba(10,46,44,0.25)]" />
+          <Logo size={28} decorative className="shrink-0 drop-shadow-[0_2px_6px_rgba(10,46,44,0.25)]" />
           <span className={`font-display text-lg font-semibold tracking-tight ${text} transition-colors`}>
             EventDhondo
           </span>

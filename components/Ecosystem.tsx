@@ -63,11 +63,11 @@ export default function Ecosystem() {
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.6, ease: easeOut, delay: 0.2 }}
+                transition={{ duration: reduce ? 0 : 0.6, ease: easeOut, delay: reduce ? 0 : 0.2 }}
                 style={{ transformOrigin: "50% 50%" }}
               >
                 <div className="flex h-full w-full items-center justify-center">
-                  <Logo size={44} className="drop-shadow-[0_4px_10px_rgba(10,46,44,0.25)]" />
+                  <Logo size={44} decorative className="drop-shadow-[0_4px_10px_rgba(10,46,44,0.25)]" />
                 </div>
               </motion.foreignObject>
             </svg>
@@ -78,7 +78,7 @@ export default function Ecosystem() {
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.6, ease: easeOut, delay: 0.25 + i * 0.15 }}
+                transition={{ duration: reduce ? 0 : 0.6, ease: easeOut, delay: reduce ? 0 : 0.25 + i * 0.15 }}
                 className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1 text-center"
                 style={{ left: `${(n.cx / 640) * 100}%`, top: `${(n.cy / 560) * 100}%` }}
               >

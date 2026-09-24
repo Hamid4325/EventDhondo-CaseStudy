@@ -45,7 +45,7 @@ export default function Showcase({
                 <h3 className="font-display text-2xl font-semibold text-ink">{f.title}</h3>
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{f.description}</p>
               </div>
-              <div className="mx-auto w-52">
+              <div className="mx-auto max-w-52">
                 <DeviceFrame src={f.screen} alt={f.title} fallbackLabel={`${f.id}.png`} maxH={460} />
               </div>
             </div>
@@ -71,7 +71,7 @@ export default function Showcase({
                   </p>
                   {accent && i === 2 && (
                     <div className="mt-8 flex items-center gap-5">
-                      <div className="w-36">
+                      <div className="max-w-36">
                         <DeviceFrame
                           src={accent.screen}
                           alt={accent.title}
@@ -110,7 +110,7 @@ export default function Showcase({
                     src={f.screen}
                     alt={f.title}
                     fallbackLabel={`${f.id}.png`}
-                    className="w-64"
+                    className="max-w-64"
                     maxH={560}
                   />
                 </motion.div>
