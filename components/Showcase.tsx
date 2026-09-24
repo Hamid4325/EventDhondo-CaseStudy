@@ -46,7 +46,7 @@ export default function Showcase({
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{f.description}</p>
               </div>
               <div className="mx-auto w-52">
-                <DeviceFrame src={f.screen} alt={f.title} fallbackLabel={`${f.id}.png`} />
+                <DeviceFrame src={f.screen} alt={f.title} fallbackLabel={`${f.id}.png`} maxH={460} />
               </div>
             </div>
           ))}
@@ -71,11 +71,12 @@ export default function Showcase({
                   </p>
                   {accent && i === 2 && (
                     <div className="mt-8 flex items-center gap-5">
-                      <div className="w-28">
+                      <div className="w-36">
                         <DeviceFrame
                           src={accent.screen}
                           alt={accent.title}
                           fallbackLabel={`${accent.id}.png`}
+                          maxH={280}
                         />
                       </div>
                       <div className="max-w-[14rem]">
@@ -105,7 +106,13 @@ export default function Showcase({
                   style={{ pointerEvents: i === active ? "auto" : "none" }}
                   aria-hidden={i !== active}
                 >
-                  <DeviceFrame src={f.screen} alt={f.title} fallbackLabel={`${f.id}.png`} className="w-64" />
+                  <DeviceFrame
+                    src={f.screen}
+                    alt={f.title}
+                    fallbackLabel={`${f.id}.png`}
+                    className="w-64"
+                    maxH={560}
+                  />
                 </motion.div>
               ))}
             </div>
