@@ -80,6 +80,8 @@ export default function Hero() {
           fallbackLabel="home-dashboard-student.png"
           maxH={520}
           className="max-w-52 sm:max-w-64"
+          windowed
+          progress={scrollYProgress}
         />
       </motion.div>
 
