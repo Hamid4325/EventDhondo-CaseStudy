@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- keep raw <img> + onError so a missing screen still shows the labeled fallback in static export */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   motion,
   useMotionValue,
@@ -11,6 +11,13 @@ import {
 } from "framer-motion";
 
 const WINDOW_RATIO = 2.1667; // 19.5 / 9 phone window
+
+// Mount gate that does not need setState-in-effect: React reads getServerSnapshot
+// during hydration (so SSR and the first client render agree), then re-renders
+// with getSnapshot afterwards. Stable identities to avoid resubscribing.
+const noopSubscribe = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
 
 export default function DeviceFrame({
   src,
@@ -33,9 +40,23 @@ export default function DeviceFrame({
 }) {
   const [missing, setMissing] = useState(false);
   const [imgRatio, setImgRatio] = useState<number | null>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
   const reduce = useReducedMotion();
 
-  const windowedActive = windowed && !reduce;
+  // Hydration-safe: framer's useReducedMotion is read during render (useState),
+  // so SSR always emits the native branch; the windowed crop only appears after
+  // hydration on non-reduced clients (no SSR/client mismatch for reduced users).
+  const mounted = useSyncExternalStore(noopSubscribe, clientSnapshot, serverSnapshot);
+  const windowedActive = windowed && !reduce && mounted;
+
+  useEffect(() => {
+    // Backfill ratio when the cached image completed before the load listener
+    // attached (React does not replay "load" for already-complete images).
+    if (windowedActive) {
+      const el = imgRef.current;
+      if (el && el.naturalHeight > 0) setImgRatio(el.naturalHeight / el.naturalWidth);
+    }
+  }, [windowedActive]);
 
   const travelPct = imgRatio ? Math.max(0, (1 - WINDOW_RATIO / imgRatio) * 100) : 0;
   const fallback = useMotionValue(0);
@@ -58,6 +79,7 @@ export default function DeviceFrame({
           ) : windowedActive ? (
             <div className="relative aspect-[9/19.5] w-full overflow-hidden">
               <motion.img
+                ref={imgRef}
                 src={src}
                 alt={alt}
                 loading="lazy"
