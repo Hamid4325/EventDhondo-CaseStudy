@@ -51,7 +51,6 @@ export default function Impact() {
           {impactBadges.map((b) => (
             <Reveal key={b.label}>
               <div className="flex flex-col items-center gap-6 text-center">
-                <span className="h-px w-10 bg-teal-200/40" aria-hidden />
                 <p className="max-w-xs text-base font-medium leading-relaxed text-teal-50/90">{b.label}</p>
               </div>
             </Reveal>
