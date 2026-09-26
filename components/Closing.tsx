@@ -4,9 +4,9 @@ import Reveal from "./Reveal";
 import Logo from "./Logo";
 
 const pills = [
-  { label: "LinkedIn", href: "#" },
-  { label: "Portfolio", href: "#" },
-  { label: "GitHub", href: "#" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/hamid-abad" },
+  { label: "Portfolio", href: "https://hamidabad.netlify.app" },
+  { label: "GitHub", href: "https://github.com/Hamid4325/" },
 ];
 
 export default function Closing() {
@@ -17,12 +17,14 @@ export default function Closing() {
           <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-5xl">
             Designed to make campus events effortless.
           </h2>
-          <p className="mt-6 text-sm text-muted">[Your Name] — Product Design Intern</p>
+          <p className="mt-6 text-sm text-muted">Muhammad Hamid Abad — Your Fellow Developer</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             {pills.map((p) => (
               <a
                 key={p.label}
                 href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-full px-5 py-2 text-sm font-medium text-ink ring-1 ring-black/10 transition-colors hover:bg-brand-tint hover:text-brand"
               >
                 {p.label}
