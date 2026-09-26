@@ -81,6 +81,7 @@ function DiagramNode({
 }) {
   const current = index === active;
   const passed = index < active;
+  const showText = staticMode || current;
 
   const animate = staticMode
     ? undefined
@@ -105,10 +106,22 @@ function DiagramNode({
       >
         {index + 1}
       </span>
-      <p className="text-center font-display font-semibold text-ink">
-        {journeySteps[index].label}
-      </p>
-      <p className="text-center text-muted text-sm">{journeySteps[index].note}</p>
+      {showText && (
+        <div className="absolute left-1/2 top-full mt-3 w-max -translate-x-1/2 text-center">
+          <motion.div
+            initial={staticMode ? false : { opacity: 0, y: 4 }}
+            animate={staticMode ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: easeOut }}
+          >
+            <p className="text-center font-display font-semibold text-ink">
+              {journeySteps[index].label}
+            </p>
+            <p className="text-center text-muted text-sm">
+              {journeySteps[index].note}
+            </p>
+          </motion.div>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -158,7 +171,16 @@ function Rail({
                   </span>
                   <div>
                     <p className="font-display text-xl text-ink">{s.label}</p>
-                    <p className="text-muted text-sm">{s.note}</p>
+                    {(staticMode || current) && (
+                      <motion.p
+                        initial={staticMode ? false : { opacity: 0, y: 4 }}
+                        animate={staticMode ? undefined : { opacity: 1, y: 0 }}
+                        transition={{ duration: 0.25, ease: easeOut }}
+                        className="text-muted text-sm"
+                      >
+                        {s.note}
+                      </motion.p>
+                    )}
                   </div>
                 </div>
               </li>
