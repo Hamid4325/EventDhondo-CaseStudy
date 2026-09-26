@@ -30,6 +30,11 @@ export default function Hero() {
 
   const fade = useTransform(pageProgress, [0, 0.85], reduce ? [1, 1] : [1, 0]);
 
+  // The dashboard sits at the hero's bottom, so the phone leaves the viewport
+  // before heroProgress reaches 1. Finish the reveal at 35% of the departure
+  // so the complete screen is on screen and held before the phone scrolls off.
+  const heroSlide = useTransform(heroProgress, [0, 0.35], [0, 1]);
+
   return (
     <section
       ref={heroRef}
@@ -81,17 +86,17 @@ export default function Hero() {
           alt="EventDhondo splash screen with teal branding"
           fallbackLabel="splash-screen.png"
           tilted
-          maxH={430}
-          className="max-w-36 sm:max-w-44"
+          maxH={560}
+          className="max-w-36 sm:max-w-64"
         />
         <DeviceFrame
           src={SCREENS.home}
           alt="Student home dashboard"
           fallbackLabel="home-dashboard-student.png"
           maxH={520}
-          className="max-w-52 sm:max-w-64"
+          className="max-w-36 sm:max-w-64"
           windowed
-          progress={heroProgress}
+          progress={heroSlide}
         />
       </motion.div>
 
