@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- keep raw <img> + onError so a missing screen still shows the labeled fallback in static export */
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionValue,
@@ -9,15 +9,9 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { useMounted } from "@/lib/useMounted";
 
 const WINDOW_RATIO = 2.1667; // 19.5 / 9 phone window
-
-// Mount gate that does not need setState-in-effect: React reads getServerSnapshot
-// during hydration (so SSR and the first client render agree), then re-renders
-// with getSnapshot afterwards. Stable identities to avoid resubscribing.
-const noopSubscribe = () => () => {};
-const clientSnapshot = () => true;
-const serverSnapshot = () => false;
 
 export default function DeviceFrame({
   src,
@@ -46,7 +40,7 @@ export default function DeviceFrame({
   // Hydration-safe: framer's useReducedMotion is read during render (useState),
   // so SSR always emits the native branch; the windowed crop only appears after
   // hydration on non-reduced clients (no SSR/client mismatch for reduced users).
-  const mounted = useSyncExternalStore(noopSubscribe, clientSnapshot, serverSnapshot);
+  const mounted = useMounted();
   const windowedActive = windowed && !reduce && mounted;
 
   useEffect(() => {
@@ -59,11 +53,14 @@ export default function DeviceFrame({
   }, [windowedActive]);
 
   const travelPct = imgRatio ? Math.max(0, (1 - WINDOW_RATIO / imgRatio) * 100) : 0;
+  // v2 rendered width: the browser applied maxHeight to a h-auto image, so the
+  // frame was maxH / imgRatio wide and the caller's max-w-* cap never bound.
+  const nativeW = imgRatio && maxH ? maxH / imgRatio : undefined;
   const fallback = useMotionValue(0);
   const travelY = useTransform(progress ?? fallback, [0, 1], ["0%", `-${travelPct}%`]);
 
   return (
-    <div className={`${className} ${windowedActive ? "w-full" : "w-max"} ${tilted ? "-rotate-3" : ""} transition-transform duration-300`}>
+    <div className={`${className} w-max ${tilted ? "-rotate-3" : ""} transition-transform duration-300`}>
       <div className="relative rounded-[2rem] bg-gradient-to-b from-slate-600 via-slate-900 to-black p-1.5 shadow-[0_40px_80px_-20px_rgba(10,46,44,0.55)] ring-1 ring-black/50">
         <div className="absolute -left-[3px] top-24 z-0 h-12 w-[3px] rounded-l bg-slate-800" aria-hidden />
         <div className="absolute -left-[3px] top-40 z-0 h-16 w-[3px] rounded-l bg-slate-800" aria-hidden />
@@ -77,7 +74,7 @@ export default function DeviceFrame({
               <span className="font-mono text-[11px] text-brand">{fallbackLabel}</span>
             </div>
           ) : windowedActive ? (
-            <div className="relative aspect-[9/19.5] w-full overflow-hidden">
+            <div className="relative aspect-[9/19.5] w-full overflow-hidden" style={{ width: nativeW ?? 0, maxWidth: "100%" }}>
               <motion.img
                 ref={imgRef}
                 src={src}
