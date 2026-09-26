@@ -187,6 +187,15 @@ function Rail({
             );
           })}
         </ol>
+        {!staticMode && (
+          <ol aria-label="Journey steps" className="sr-only lg:hidden">
+            {journeySteps.map((s, i) => (
+              <li key={s.label}>
+                {i + 1}. {s.label} — {s.note}
+              </li>
+            ))}
+          </ol>
+        )}
       </div>
     </div>
   );
