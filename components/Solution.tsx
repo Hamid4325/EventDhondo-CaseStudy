@@ -219,6 +219,13 @@ function ScrollJourney() {
         <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
           <Diagram active={active} progress={progress} />
         </div>
+        <ol aria-label="Journey steps" className="hidden lg:block lg:sr-only">
+          {journeySteps.map((s, i) => (
+            <li key={s.label}>
+              {i + 1}. {s.label} — {s.note}
+            </li>
+          ))}
+        </ol>
       </div>
       <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
         <Rail active={active} progress={progress} />
