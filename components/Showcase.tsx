@@ -70,7 +70,10 @@ function DesktopRow({
 
 function MobileCard({ f }: { f: ShowcaseFeature }) {
   const cardRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({ target: cardRef, offset: ["start end", "end start"] });
+  // ends "end end": the card plays its reveal as it ENTERS the viewport and
+  // settles fully visible at progress 1 (a ~580px card in a ~700px viewport
+  // with "end start" only reaches ~0.55 on screen, hiding the screen's bottom).
+  const { scrollYProgress } = useScroll({ target: cardRef, offset: ["start end", "end end"] });
 
   return (
     <div ref={cardRef} className="flex flex-col gap-8">
