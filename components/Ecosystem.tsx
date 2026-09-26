@@ -72,33 +72,30 @@ export default function Ecosystem() {
               </motion.foreignObject>
             </svg>
 
-            {nodes.map((n, i) => (
-              <motion.div
-                key={n.label}
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: reduce ? 0 : 0.6, ease: easeOut, delay: reduce ? 0 : 0.25 + i * 0.15 }}
-                className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1 text-center"
-                style={{ left: `${(n.cx / 640) * 100}%`, top: `${(n.cy / 560) * 100}%` }}
-              >
-                {"labelAbove" in n && n.labelAbove ? (
-                  <>
+            {nodes.map((n, i) => {
+              const labelAbove = "labelAbove" in n && n.labelAbove;
+              return (
+                <motion.div
+                  key={n.label}
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: reduce ? 0 : 0.6, ease: easeOut, delay: reduce ? 0 : 0.25 + i * 0.15 }}
+                  className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1 text-center"
+                  style={{ left: `${(n.cx / 640) * 100}%`, top: `${(n.cy / 560) * 100}%` }}
+                >
+                  {labelAbove && (
                     <span className="mb-2 max-w-[9.5rem] text-xs leading-snug text-muted">{n.detail}</span>
-                    <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white font-display text-base font-semibold text-ink shadow-[0_20px_50px_-20px_rgba(10,46,44,0.45)] ring-[5px] ring-brand/10 sm:h-20 sm:w-20 sm:text-lg">
-                      {n.label}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white font-display text-base font-semibold text-ink shadow-[0_20px_50px_-20px_rgba(10,46,44,0.45)] ring-[5px] ring-brand/10 sm:h-20 sm:w-20 sm:text-lg">
-                      {n.label}
-                    </span>
+                  )}
+                  <span className="flex h-24 w-24 items-center justify-center rounded-full bg-white font-display text-sm font-semibold tracking-tight text-ink shadow-[0_20px_50px_-20px_rgba(10,46,44,0.45)] ring-[5px] ring-brand/10 sm:h-32 sm:w-32 sm:text-lg">
+                    {n.label}
+                  </span>
+                  {!labelAbove && (
                     <span className="mt-2 max-w-[9.5rem] text-xs leading-snug text-muted">{n.detail}</span>
-                  </>
-                )}
-              </motion.div>
-            ))}
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </Reveal>
       </div>
