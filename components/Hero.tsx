@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import {
   motion,
   useReducedMotion,
@@ -14,15 +15,24 @@ const words = ["Discover.", "Participate.", "Achieve."];
 
 export default function Hero() {
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  // `fade` keeps the PAGE-scoped value it has always used (pre-existing, out of
+  // v3 scope: scoping it would fade the frames out while the dashboard slides).
+  const { scrollYProgress: pageProgress } = useScroll({
     target: undefined,
     offset: ["start start", "end start"],
   });
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
 
-  const fade = useTransform(scrollYProgress, [0, 0.85], reduce ? [1, 1] : [1, 0]);
+  const fade = useTransform(pageProgress, [0, 0.85], reduce ? [1, 1] : [1, 0]);
 
   return (
     <section
+      ref={heroRef}
       id="top"
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-brand via-[#0b5e5b] to-ink px-4 pt-28 pb-16 text-center"
     >
@@ -81,7 +91,7 @@ export default function Hero() {
           maxH={520}
           className="max-w-52 sm:max-w-64"
           windowed
-          progress={scrollYProgress}
+          progress={heroProgress}
         />
       </motion.div>
 
