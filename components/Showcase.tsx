@@ -27,7 +27,12 @@ function DesktopRow({
   registerProgress: (featureId: string, mv: MotionValue<number>) => void;
 }) {
   const rowRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({ target: rowRef, offset: ["start end", "center center"] });
+  // "start center" puts progress 0 at the exact instant useCenteredActive crossfades
+  // this row in (its top crossing the viewport centre), so the window opens on the first
+  // pixel of the screenshot instead of partway down it. "start start" lands progress 1
+  // 50vh later - 62% of the row's 80vh active window - so the complete screen is reached
+  // and then held for the remaining 38% while the text scrolls up.
+  const { scrollYProgress } = useScroll({ target: rowRef, offset: ["start center", "start start"] });
 
   useEffect(() => {
     if (WINDOWED_IDS.has(f.id)) registerProgress(f.id, scrollYProgress);
@@ -51,20 +56,24 @@ function DesktopRow({
 }
 
 function MobileCard({ f }: { f: ShowcaseFeature }) {
-  const cardRef = useRef<HTMLDivElement | null>(null);
-  // ends "center center": progress 1 lands exactly when the card's centre reaches
-  // the viewport centre, which is when useCenteredActive crossfades it in. So the
-  // complete screen is on screen and held for the rest of the row's 80vh while the
-  // text scrolls up, instead of being cut off half a travel before the flip.
-  const { scrollYProgress } = useScroll({ target: cardRef, offset: ["start end", "center center"] });
+  const deviceRef = useRef<HTMLDivElement | null>(null);
+  // Measured on the device wrapper, not the card: "start end" then puts progress 0 at
+  // the instant the screen first enters the viewport (the heading above it would
+  // otherwise eat the first fifth of the travel), and "center center" lands progress 1
+  // when the device is fully on screen and centred, complete and held from there.
+  const { scrollYProgress } = useScroll({ target: deviceRef, offset: ["start end", "center center"] });
 
   return (
-    <div ref={cardRef} className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8">
       <div>
         <h3 className="font-display text-2xl font-semibold text-ink">{f.title}</h3>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{f.description}</p>
       </div>
-      <div className="mx-auto max-w-52">
+      {/* w-full is load-bearing: mx-auto on a flex-column child is fit-content sized,
+          so the windowed envelope's own w-full would resolve against an indefinite
+          width and collapse the device to zero. The cap adds the bezel's 12px so the
+          windowed screen lands on the same 224px as the maxH-driven native one. */}
+      <div ref={deviceRef} className="mx-auto w-full max-w-[calc(14rem+0.75rem)]">
         <DeviceFrame
           src={f.screen}
           alt={f.title}
