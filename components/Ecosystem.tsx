@@ -59,7 +59,7 @@ export default function Ecosystem() {
 
               <circle cx="320" cy="280" r="46" fill="#E7F4F3" />
               <motion.foreignObject
-                x="296" y="246" width="48" height="48"
+                x="296" y="256" width="48" height="48"
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
