@@ -18,13 +18,11 @@ const WINDOWED_IDS = new Set(["feed", "details", "teams", "portfolio"]);
 function DesktopRow({
   f,
   i,
-  accent,
   observeRef,
   registerProgress,
 }: {
   f: ShowcaseFeature;
   i: number;
-  accent?: ShowcaseFeature;
   observeRef: (node: HTMLElement | null, index: number) => void;
   registerProgress: (featureId: string, mv: MotionValue<number>) => void;
 }) {
@@ -47,22 +45,6 @@ function DesktopRow({
         <span className="font-mono text-xs text-brand">{String(i + 1).padStart(2, "0")}</span>
         <h3 className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">{f.title}</h3>
         <p className="mt-4 max-w-md text-base leading-relaxed text-muted">{f.description}</p>
-        {accent && i === 2 && (
-          <div className="mt-8 flex items-center gap-5">
-            <div className="max-w-36">
-              <DeviceFrame
-                src={accent.screen}
-                alt={accent.title}
-                fallbackLabel={`${accent.id}.png`}
-                maxH={280}
-              />
-            </div>
-            <div className="max-w-[14rem]">
-              <p className="text-sm font-semibold text-ink">{accent.title}</p>
-              <p className="mt-1 text-xs leading-snug text-muted">{accent.description}</p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -102,14 +84,12 @@ export default function Showcase({
   heading,
   features,
   flip = false,
-  accent,
 }: {
   id: string;
   eyebrow: string;
   heading: string;
   features: ShowcaseFeature[];
   flip?: boolean;
-  accent?: ShowcaseFeature;
 }) {
   const reduce = useReducedMotion();
   const { active, ref } = useCenteredActive(features.length);
@@ -146,7 +126,6 @@ export default function Showcase({
                 key={f.id}
                 f={f}
                 i={i}
-                accent={accent}
                 observeRef={ref}
                 registerProgress={registerProgress}
               />

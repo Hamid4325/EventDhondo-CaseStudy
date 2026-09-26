@@ -72,6 +72,12 @@ export const studentFeatures: ShowcaseFeature[] = [
     screen: SCREENS.eventDetail,
   },
   {
+    id: "registration-success",
+    title: "Instant confirmation",
+    description: "Registration, QR, and a spot secured — in one tap.",
+    screen: SCREENS.registrationSuccess,
+  },
+  {
     id: "teams",
     title: "Built for teams",
     description:
@@ -86,13 +92,6 @@ export const studentFeatures: ShowcaseFeature[] = [
     screen: SCREENS.achievements,
   },
 ];
-
-export const studentMicroMoment = {
-  id: "registration-success",
-  title: "Instant confirmation",
-  description: "Registration, QR, and a spot secured — in one tap.",
-  screen: SCREENS.registrationSuccess,
-};
 
 export const organizerFeatures: ShowcaseFeature[] = [
   {
