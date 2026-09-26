@@ -13,9 +13,9 @@ const nodes = [
 ] as const;
 
 const cycleEdges = [
-  { id: "cycle-a", d: "M320 110 A170 170 0 0 0 172.8 365" },
-  { id: "cycle-b", d: "M172.8 365 A170 170 0 0 0 467.2 365" },
-  { id: "cycle-c", d: "M467.2 365 A170 170 0 0 0 320 110" },
+  { id: "cycle-a", d: "M320 110 A170 170 0 0 0 160.8 339.7" },
+  { id: "cycle-b", d: "M172.8 365 A170 170 0 0 0 451.3 387.9" },
+  { id: "cycle-c", d: "M467.2 365 A170 170 0 0 0 347.9 112.3" },
 ] as const;
 
 export default function Ecosystem() {
