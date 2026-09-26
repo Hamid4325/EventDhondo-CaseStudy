@@ -13,9 +13,9 @@ const nodes = [
 ] as const;
 
 const cycleEdges = [
-  { id: "cycle-a", d: "M320 110 A170 170 0 0 0 150.0 280.0" },
-  { id: "cycle-b", d: "M172.8 365 A170 170 0 0 0 405.0 427.2" },
-  { id: "cycle-c", d: "M467.2 365 A170 170 0 0 0 405.0 132.8" },
+  { id: "cycle-a", d: "M320 110 A170 170 0 0 0 199.8 159.8 A170 170 0 0 0 150.0 280.0" },
+  { id: "cycle-b", d: "M172.8 365 A170 170 0 0 0 276.0 444.2 A170 170 0 0 0 405.0 427.2" },
+  { id: "cycle-c", d: "M467.2 365 A170 170 0 0 0 484.2 236.0 A170 170 0 0 0 405.0 132.8" },
 ] as const;
 
 export default function Ecosystem() {
@@ -49,7 +49,7 @@ export default function Ecosystem() {
                   fill="none"
                   stroke="#0E8F8A"
                   strokeWidth="3"
-                  markerEnd="url(#ed-arrow)"
+                  markerMid="url(#ed-arrow)"
                   initial={{ pathLength: 0 }}
                   whileInView={{ pathLength: 1 }}
                   viewport={{ once: true, amount: 0.4 }}
