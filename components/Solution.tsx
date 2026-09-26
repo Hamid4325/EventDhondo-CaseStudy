@@ -11,6 +11,7 @@ import {
 import Reveal from "./Reveal";
 import { journeySteps } from "@/data/showcase";
 import { easeOut } from "@/lib/motion";
+import { useMounted } from "@/lib/useMounted";
 
 const PATH_D =
   "M120 400 C 190 380 220 360 280 326 C 350 292 380 278 440 252 C 510 226 540 212 600 178 C 670 144 700 130 760 104 C 820 80 850 68 900 56";
@@ -254,6 +255,8 @@ function StaticMarkup() {
 
 export default function Solution() {
   const reduce = useReducedMotion();
+  const mounted = useMounted();
+  const reduceActive = mounted && reduce;
   return (
     <section className="bg-brand-tint">
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
@@ -263,7 +266,7 @@ export default function Solution() {
             lifecycle while building a digital identity layer for students.
           </h2>
         </Reveal>
-        {reduce ? <StaticMarkup /> : <ScrollJourney />}
+        {reduceActive ? <StaticMarkup /> : <ScrollJourney />}
       </div>
     </section>
   );
