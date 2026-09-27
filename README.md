@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EventDhondo — Case Study
 
-## Getting Started
+A single-page product design case study for **EventDhondo**, a campus event app, built with
+Next.js (App Router, static export), Tailwind CSS v4 and Framer Motion.
 
-First, run the development server:
+The site walks through the problem, the solution, two role-based product tours (student and
+organizer), the impact, and how the three sides of the marketplace fit together.
+
+## Highlights
+
+- **Device frames that scroll like real phones.** Screens taller than the frame window are
+  revealed progressively as you scroll, using a scroll-linked `MotionValue` rather than a
+  timeline, so the motion is reversible and never desyncs from the scroll position.
+- **Hydration-safe scroll effects.** The windowed frames are client-only (the server emits the
+  static layout), gated by `useSyncExternalStore` so there is no server/client markup mismatch,
+  and reduced-motion users get the plain static frame instead.
+- **Sticky crossfading product tour.** Six screens per role live in a sticky column; the text
+  column scrolls and each screen is anchored to the exact scroll position where it becomes
+  active, so every screenshot is shown from its first pixel and held once complete.
+- **Scroll-linked ecosystem diagram.** Three orbiting relationship arcs with arrowheads drawn
+  on `markerMid` vertices, sized so they stay clear of the node discs at every breakpoint.
+
+## Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router, `output: "export"`) |
+| UI | React 19, Tailwind CSS v4 |
+| Animation | Framer Motion (scroll-linked `MotionValue`s) |
+| Language | TypeScript |
+| Hosted on | Netlify (static output in `out/`) |
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script | What it does |
+|---|---|
+| `npm run dev` | Dev server with hot reload |
+| `npm run build` | Production build, statically exported to `out/` |
+| `npm run start` | Serves the production build |
+| `npm run lint` | ESLint |
+| `npm run screens:check` | Verifies every screen referenced in the data has a PNG in `public/screens/` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploying to Netlify
 
-## Learn More
+The build is a static export, so Netlify only needs a build command and a publish directory —
+both are declared in [`netlify.toml`](./netlify.toml):
 
-To learn more about Next.js, take a look at the following resources:
+- **Build command:** `npm run build`
+- **Publish directory:** `out`
+- **Node version:** 22 (pinned in `netlify.toml`; Next.js requires >= 20.9)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To deploy:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push this repository to GitHub.
+2. In Netlify, choose **Add new site → Import an existing project** and select the repository.
+   Netlify reads `netlify.toml` and fills the build settings in automatically.
+3. Click **Deploy site**. The first build takes a couple of minutes; every later deploy is
+   incremental.
+4. To rebuild after the first deploy, use **Site configuration → Build & deploy → Clear cache
+   and deploy site** (only needed if you change dependencies).
 
-## Deploy on Vercel
+The `Navbar` CTA ("View Full Case Study") is intentionally a placeholder (`href="#"`); point it
+at your hosted case study document when you have one.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Muhammad Hamid Abad** — [LinkedIn](https://www.linkedin.com/in/hamid-abad) ·
+[Portfolio](https://hamidabad.netlify.app) · [GitHub](https://github.com/Hamid4325/)

@@ -44,3 +44,10 @@ next-env.d.ts
 # SDD scratch (local)
 /.superpowers/
 
+# design reference material (local only - not used by the site build)
+/reference/
+
+# netlify
+/.netlify
+
+
