@@ -45,7 +45,23 @@ npm run dev        # http://localhost:3000
 | `npm run build` | Production build, statically exported to `out/` |
 | `npm run start` | Serves the production build |
 | `npm run lint` | ESLint |
-| `npm run screens:check` | Verifies every screen referenced in the data has a PNG in `public/screens/` |
+| `npm run screens:check` | Verifies every screen referenced in the data has an image in `public/screens/` |
+| `npm run images:optimize` | Converts any PNG in `public/` to WebP and deletes the PNG |
+
+### Images
+
+Screenshots and the logo ship as WebP, not PNG — that is the difference between
+3.29 MB and 0.70 MB of media. To add or replace a screen, drop a **PNG** into
+`public/screens/` and run:
+
+```bash
+npm run images:optimize
+```
+
+It caps screens at 672px wide (2.75× the 244px desktop frame, 3.0× the 224px
+mobile card, so nothing is ever upscaled) at quality 85, shrinks the logo to
+160px losslessly, and deletes the PNG sources. The originals stay in git history.
+Do not commit new PNGs to `public/` — the optimizer owns that directory.
 
 ## Deploying to Netlify
 
