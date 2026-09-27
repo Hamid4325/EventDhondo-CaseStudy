@@ -50,4 +50,9 @@ next-env.d.ts
 # netlify
 /.netlify
 
+# AI agent rule files - generated per-clone by `next dev`, not project source
+AGENTS.md
+CLAUDE.md
+
+
 
