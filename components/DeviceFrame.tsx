@@ -77,6 +77,7 @@ export default function DeviceFrame({
                 src={src}
                 alt={alt}
                 loading="lazy"
+                decoding="async"
                 className="absolute inset-x-0 top-0 h-auto w-full max-w-none"
                 style={{ y: travelY }}
                 onLoad={(e) => {
@@ -91,6 +92,7 @@ export default function DeviceFrame({
               src={src}
               alt={alt}
               loading="lazy"
+              decoding="async"
               className="block h-auto w-auto max-w-full"
               style={maxH ? { maxHeight: maxH } : undefined}
               onError={() => setMissing(true)}

@@ -2,17 +2,17 @@ import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const required = [
-  "splash-screen.png",
-  "home-dashboard-student.png",
-  "interest-selection.png",
-  "event-detail-registration.png",
-  "team-registration.png",
-  "achievements-profile.png",
-  "registration-success.png",
-  "organizer-dashboard.png",
-  "attendance-detail-scan.png",
-  "edit-event-menu.png",
-  "reviews-ratings-overview.png",
+  "splash-screen.webp",
+  "home-dashboard-student.webp",
+  "interest-selection.webp",
+  "event-detail-registration.webp",
+  "team-registration.webp",
+  "achievements-profile.webp",
+  "registration-success.webp",
+  "organizer-dashboard.webp",
+  "attendance-detail-scan.webp",
+  "edit-event-menu.webp",
+  "reviews-ratings-overview.webp",
 ];
 
 const dir = join(process.cwd(), "public", "screens");

@@ -84,7 +84,7 @@ export default function Hero() {
         <DeviceFrame
           src={SCREENS.splash}
           alt="EventDhondo splash screen with teal branding"
-          fallbackLabel="splash-screen.png"
+          fallbackLabel="splash-screen.webp"
           tilted
           maxH={560}
           className="max-w-36 sm:max-w-64"
@@ -92,7 +92,7 @@ export default function Hero() {
         <DeviceFrame
           src={SCREENS.home}
           alt="Student home dashboard"
-          fallbackLabel="home-dashboard-student.png"
+          fallbackLabel="home-dashboard-student.webp"
           maxH={520}
           className="max-w-36 sm:max-w-64"
           windowed

@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element -- static brand mark, no optimization pipeline for PNGs in static export */
+/* eslint-disable @next/next/no-img-element -- static brand mark; a 160px WebP is already the smallest useful form and static export has no image pipeline */
 export default function Logo({
   size = 28,
   className = "",
@@ -10,12 +10,13 @@ export default function Logo({
 }) {
   return (
     <img
-      src="/Logo.png"
+      src="/Logo.webp"
       alt={decorative ? "" : "EventDhondo"}
       aria-hidden={decorative ? true : undefined}
       width={size}
       height={size}
       className={className}
+      decoding="async"
       style={{ width: size, height: size }}
     />
   );

@@ -77,7 +77,7 @@ function MobileCard({ f }: { f: ShowcaseFeature }) {
         <DeviceFrame
           src={f.screen}
           alt={f.title}
-          fallbackLabel={`${f.id}.png`}
+          fallbackLabel={`${f.id}.webp`}
           maxH={460}
           windowed={WINDOWED_IDS.has(f.id)}
           progress={scrollYProgress}
@@ -160,7 +160,7 @@ export default function Showcase({
                   <DeviceFrame
                     src={f.screen}
                     alt={f.title}
-                    fallbackLabel={`${f.id}.png`}
+                    fallbackLabel={`${f.id}.webp`}
                     className="max-w-64"
                     maxH={560}
                     windowed={WINDOWED_IDS.has(f.id)}

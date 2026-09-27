@@ -12,6 +12,18 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Screenshots and the logo are not hashed, so they get a long-but-finite cache.
+# Netlify's CDN purges changed files on deploy, so an updated image still lands.
+[[headers]]
+  for = "/screens/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/Logo.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
 [[headers]]
   for = "/*"
   [headers.values]
