@@ -24,6 +24,13 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
+# The case-study PDF is a large, unhashed download. Same treatment as the logo:
+# a week of caching, and Netlify's CDN purges it on deploy so an updated deck lands.
+[[headers]]
+  for = "/EventDhondo_Case_Study.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
 [[headers]]
   for = "/*"
   [headers.values]

@@ -32,3 +32,13 @@ export function IconAchievements({ className = "" }: { className?: string }) {
     </svg>
   );
 }
+
+export function IconDownload({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className} aria-hidden>
+      <path d="M12 3v11" strokeLinecap="round" />
+      <path d="M7.5 10L12 14.5 16.5 10" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3" strokeLinecap="round" />
+    </svg>
+  );
+}

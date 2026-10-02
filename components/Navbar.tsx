@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import { IconDownload } from "./icons";
 
 const links = [
   { label: "Problem", href: "#problem" },
@@ -51,14 +52,16 @@ export default function Navbar() {
           ))}
         </div>
         <a
-          href="#"
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+          href="/EventDhondo_Case_Study.pdf"
+          download="EventDhondo_Case_Study.pdf"
+          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
             scrolled
               ? "bg-brand text-white hover:bg-ink"
               : "bg-white text-ink hover:bg-brand-tint"
           }`}
         >
-          View Full Case Study
+          <IconDownload className="h-4 w-4 shrink-0" />
+          Download Case Study
         </a>
       </nav>
     </header>
