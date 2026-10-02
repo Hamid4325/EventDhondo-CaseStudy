@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "EventDhondo — Campus Event Discovery & Achievement Platform",
   description:
     "A design case study of EventDhondo, a unified platform connecting university students and organizers for event discovery, registration, attendance, and achievement tracking.",
+  verification: {
+    google: "bFhyYSRZudMUn2hOXlx6-s71xJ-urE1jV1D6b7jWKAY",
+  },
 };
 
 export default function RootLayout({
